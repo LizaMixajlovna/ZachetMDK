@@ -1,0 +1,92 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+header {
+    background: #f2f2f2;
+    display: flex;
+    padding: 0px 20px 0px 20px;
+    position: sticky;
+    top: 0;
+}
+
+nav {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+nav a {
+    display: block;
+    text-decoration: none;
+    color: gray;
+    text-align: center;
+    padding: 6px 25px;
+}
+
+nav a:hover {
+    color: black;
+}
+
+main > :nth-child(odd) {
+    background: #f4f4f4;
+}
+
+main > :nth-child(even) {
+    background: #ffffff;
+}
+
+#logo {
+    width: 40px;
+    height: 40px;
+}
+
+main section {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 55px;
+	margin-top: -55px;
+	-webkit-background-clip: content-box;
+	background-clip: content-box;
+}
+
+section h2 {
+    color: #d9051b;
+    text-align: center;
+}
+
+#Promo h2 {
+    color: #444444;
+}
+
+#Promo img {
+    margin-top: 20px;
+    width: 50%;
+}
+
+footer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100px;
+}
+
+@media screen and (max-width: 750px) {
+    header {
+      flex-direction: column;
+      align-items: center;
+    }
+    nav {
+        flex-direction: column;
+    }
+}

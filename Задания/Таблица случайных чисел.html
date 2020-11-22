@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Таблица случайных чисел</title>
+    <style>
+		#field td {
+            width: 100px;
+            height: 100px;
+            border: 1px solid black;
+            text-align: center;
+            font-weight: bold;
+		}
+	</style>
+</head>
+<body>
+    <!--
+        Сделать игру, в которой будет квадратная таблица, в которой случайным образом будут числа от 1 до N,
+        где N - количество ячеек в таблице.
+        Суть игры будет заключаться в том, что нужно будет кликать по ячейкам в правильном порядке:
+        сначала на 1, потом на 2, потом на 3 и так далее.
+        Если игрок кликает на правильную ячейку - пусть она активируется и делает красный фон.
+        Если же он кликает на неправильную ячейку - ничего не происходит.
+        Когда игрок найдет последнее число - пусть игра начинается сначала,
+        но таблица увеличивается на одну строку и одну колонку.
+    -->
+
+    <table id="field"></table>
+</body>
+<script>
+
+    function paintField(element) // раскрашивает ячейку
+    {
+        element.style.backgroundColor = "red";
+    }
+    
+    function getNumbers(razmer) // создать массив случайно отсортированных чисел
+    {
+        let arrNumbers = [];
+        for (let i = 1; i <= razmer * razmer; i++) {
+            arrNumbers.push(i);
+        }
+        arrNumbers.sort(() => Math.random() - 0.5);
+        return arrNumbers;
+    }
+
+    function setNumbers(allTd, arrNumbers) // установить по цифре в каждую клетку
+    {
+        let i = 0;
+        for (td of allTd) {
+            td.innerHTML = arrNumbers[i++];
+        }
+    }
+
+    function setField(razmer) // создать игровое поле
+    {
+        // очищает таблицу
+        document.getElementById("field").innerHTML = "";
+
+        let Table = document.getElementById('field');
+
+        for (let i = 1; i <= razmer; i++) {
+            let newTr = document.createElement('tr'); // создаёт строку
+            for (let j = 1; j <= razmer; j++) {
+                let newTd = document.createElement("td"); // создаёт ячейку
+                // добавляет в строку ячейку
+                newTr.appendChild(newTd);      
+            }
+            Table.appendChild(newTr);
+        } 
+    }
+
+    function setListener(allTd, razmer)
+    {
+        let counter = 1;
+        for (let td of allTd) {
+            td.addEventListener('click', function() {
+                if (this.innerHTML == counter) {     
+                    paintField(this);          
+                    if (counter == razmer * razmer) {
+                        start(++razmer);
+                    }
+                    counter++;
+                }
+            });
+        }
+    }
+
+    function start(razmer = 2) // старт приложения
+    {  
+        setField(razmer);
+        let allTd = document.querySelectorAll('#field tr td'); // записывает все td из таблицы
+        setNumbers(allTd, getNumbers(razmer));
+        setListener(allTd, razmer);
+    }
+
+    start();
+</script>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <title>Разный регистр</title>
+</head>
+<body>
+    <!--
+        Пользователь вводит строку кириллицей разного регистра.
+        Напишите программу, которая заменяет регистр каждого символа на противоположный.
+        Например, если вводится «КаЖдЫй ОхОтНиК», то на выходе должен быть массив [кАжДыЙ оХоТнИк]
+    -->
+    <label for="stroka">Введите строку:</label>
+    <input type="text" value="" id="stroka">
+    <input type="button" id="enter" value="Отправить" onclick="changeRegistr()">
+    <div id="result">Результат: <span></span></div> 
+
+    <script>
+        function changeRegistr ()
+        {
+            let str = document.getElementById('stroka').value; // записываем из инпута значение   
+            let result = [];
+            
+            for(let i = 0; i < str.length; i++) {
+                if (str[i] === str[i].toUpperCase()) { // если в верхнем регистре
+                    result.push(str[i].toLowerCase());
+                } else { // иначе
+                    result.push(str[i].toUpperCase());
+                }
+            }
+            document.querySelector('#result span').innerHTML = result.join('');  
+        }
+    </script>
+</body>    
+</html>

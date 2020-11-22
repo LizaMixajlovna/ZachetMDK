@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <title>Эйлер 4</title>
+</head>
+<body>
+    <!--
+        Число-палиндром с обеих сторон (справа налево и слева направо) читается одинаково.
+        Самое большое число-палиндром, полученное умножением двух двузначных чисел – 9009 = 91 × 99.
+        Найдите самый большой палиндром, полученный умножением двух трехзначных чисел.
+    -->
+    <script>
+        function palindrome(){
+            let arr = [];    
+            for(let i = 999; i > 100; i--){
+                for(let j = 999; j > 100; j--){
+                    let mul = j * i;
+                    if(isPalin(mul)){
+                        arr.push(j * i);
+                    }
+                }
+            }
+            return Math.max.apply(Math, arr);
+        }
+
+        function isPalin(i){
+            return i.toString() == i.toString().split("").reverse().join("");
+        }
+        document.write(palindrome()) // результат
+    </script>
+</body>    
+</html>

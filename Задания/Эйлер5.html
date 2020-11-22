@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <title>Эйлер 5</title>
+</head>
+<body>
+    <!--
+        2520 - самое маленькое число, которое делится без остатка на все числа от 1 до 10.
+        Какое самое маленькое число делится нацело на все числа от 1 до 20?
+    -->
+    <script>
+        for(let i=1; i<1000000000; i++) {
+            let ok = true;
+            for(let j=1; j<=20; j++) {
+                if(i%j>0) {
+                    ok = false;
+                    break;
+                }
+            }
+            if(!ok) {
+                continue;
+            }
+            document.write(i) // результат
+            break;
+        }
+    </script>
+</body>    
+</html>

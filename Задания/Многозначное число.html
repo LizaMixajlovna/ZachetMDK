@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <title>Многозначное число</title>
+</head>
+<body>
+    <!--
+        Пользователь вводит многозначное число.
+        Напишите программу, которая вставляет двоеточие (:) между двумя нечетными числами.
+        Например, если вводится число 55639217, то на выход должно быть 5:563:921:7
+    -->
+    <label for="number">Введите многозначное число:</label>
+    <input type="number" value="" id="number">
+    <input type="button" id="enter" value="Отправить" onclick="addColon()">
+    <div id="result">Результат: <span></span></div> 
+
+    <script>
+        function addColon ()
+        {
+            let num = document.getElementById('number').value; // записываем из инпута значение
+            let str = num.toString(); // переводим из числа в строковое значение
+            let result = [str[0]]; // записываем первую цифру из строки
+
+            for(let i = 1; i < str.length; i++) {
+                if ((str[i-1] % 2 !== 0) && (str[i] % 2 !== 0)) {
+                    result.push(':', str[i]);
+                } else {
+                    result.push(str[i]);
+                }
+            }
+            document.querySelector('#result span').innerHTML = result.join('');  
+        }
+    </script>
+</body>    
+</html>

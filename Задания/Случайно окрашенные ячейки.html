@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Таблица со случайными цветами ячеек</title>
+    <style>
+		#field td {
+            width: 100px;
+            height: 100px;
+            border: 1px solid black;
+            text-align: center;
+            font-weight: bold;
+		}
+	</style>
+</head>
+<body>
+    <!--
+        Нужно реализовать игру.
+        Игра представляет собой таблицу, ячейки которой окрашены в разные случайные цвета.
+        Пусть есть определенный набор цветов, например, красный, зеленый, синий.
+        Пусть каждый клик на ячейку меняет ее цвет по кругу.
+        Цель игры - за наименьшее количество кликов сделать таблицу одного - любого - цвета.
+        Размеры таблицы пользователь устанавливает сам. По умолчанию это 3*3
+    -->
+
+    <label for="x">количество строк</label>
+    <input type="number" value="3" id="x">
+    <label for="y" value="3">количество ячеек</label>
+    <input type="number" value="3" id="y">
+    <input type="button" id="set" value="Создать поле" onclick="setFieldSize()">
+
+    <div id="clickCount">Совершено кликов: <span>0</span></div>
+    <table id="field"></table>
+</body>
+<script>
+
+    countClick = 0; 
+    function addClick()
+    {
+        document.querySelector("#clickCount span").innerHTML = ++countClick;
+    }
+
+    function arrayRandElement(arr)  // выбирает случайный элемент из переданного массива
+    { 
+        let rand = Math.floor(Math.random() * arr.length);
+        return arr[rand]; // возвращает случайный элемент массива
+    }
+
+    function paintField(element) // раскрашивает ячейку
+    {
+        let colors = ["red", "green", "blue"];
+        // получает текущий id цвета в массиве цветов 
+        let colorIndex = colors.indexOf(element.style.backgroundColor);
+        
+        // если id цвета не выходит за рамки значений в массиве
+        if(colorIndex >= 0 && colorIndex < colors.length - 1) {
+            colorIndex++; // выбирает следующий цвет из массива
+        } else {
+            colorIndex = 0; // выбирает первый цвет из массива
+        }
+        // выставляет новый цвет элементу
+        element.style.backgroundColor = colors[colorIndex];
+    }
+    
+    function setFieldSize() // задаёт размер поля
+    {
+        // очищает таблицу
+        document.getElementById("field").innerHTML = "";
+
+        let x = document.getElementById('x').value;
+        let y = document.getElementById('y').value;
+        let Table = document.getElementById('field');
+
+        for (let i = 1; i <= x; i++) {
+
+            let newTr = document.createElement('tr'); // создаёт строку
+
+            for (let j = 1; j <= y; j++) {
+                let newTd = document.createElement("td"); // создаёт ячейку
+                // добавляет в строку ячейку и добавляет ей атрибут onclick
+                newTr.appendChild(newTd).setAttribute("onclick", "paintField(this), addClick()");      
+            }
+            Table.appendChild(newTr);
+        }
+
+        let allTd = document.querySelectorAll('#field tr td'); // записывает все td из таблицы
+        // случайным образом окрашивает ячейки
+        for (element of allTd) {
+            let colors = ["red", "green", "blue"];
+            element.style.backgroundColor = arrayRandElement(colors);
+        }
+    }
+</script>
+</html>
